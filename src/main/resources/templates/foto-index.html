@@ -6,7 +6,7 @@
 </head>
 <body>
 	<h1>Foto</h1>
-	<a th:href="@{/foto/create}">
+	<a th:href="@{/admin/foto/create}">
 				Aggiungi una nuova foto
 			</a>
 	 <ul>
@@ -14,13 +14,13 @@
 			th:each="foto : ${foto}"
 			th:object="${foto}"
 		>
-			<a th:href="@{/foto/{id} (id=*{id})}">
+			<a th:href="@{/admin/foto/{id} (id=*{id})}">
 				[[ *{titolo} ]]
 			</a>
-			<a th:href="@{/foto/update/{id} (id=*{id})}">
+			<a th:href="@{/admin/foto/update/{id} (id=*{id})}">
 				modifica immagine
 			</a>
-			<a th:href="@{/foto/delete/{id} (id=*{id})}">
+			<a th:href="@{/admin/foto/delete/{id} (id=*{id})}">
 				cancella immagine
 			</a>
 		</li>

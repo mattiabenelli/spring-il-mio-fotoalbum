@@ -30,7 +30,7 @@ public class FotoController {
 	@Autowired
 	private CategoriaService categoriaService;
 	
-	@GetMapping("/foto")
+	@GetMapping("/admin/foto")
 	public String fotoList(Model model) {
 		
 		List<Foto> foto = fotoService.findAll();
@@ -41,7 +41,7 @@ public class FotoController {
 		
 	}
 	
-	@GetMapping("/foto/{id}")
+	@GetMapping("/admin/foto/{id}")
 	public String getFotoId(Model model,
 							@PathVariable("id") int id
 	){
@@ -54,7 +54,7 @@ public class FotoController {
 		return "foto-show";
 	}
 	
-	@GetMapping("foto/create")
+	@GetMapping("/admin/foto/create")
 	public String CreateFoto(Model model){
 		
 		List<Categoria> categorie = categoriaService.findAll();
@@ -65,7 +65,7 @@ public class FotoController {
 		return "foto-create";
 	}
 	
-	@PostMapping("foto/create")
+	@PostMapping("/admin/foto/create")
 	public String storeFoto(Model model,
 						@Valid @ModelAttribute Foto foto,
 						BindingResult bindingResult) {
@@ -88,10 +88,10 @@ public class FotoController {
 		
 		fotoService.save(foto);
 		
-		return "redirect:/foto";
+		return "redirect:/admin/foto";
 	}
 	
-	@GetMapping("foto/update/{id}")
+	@GetMapping("/admin/foto/update/{id}")
 	public String editFoto(Model model,
 							@PathVariable int id) {
 		
@@ -104,7 +104,7 @@ public class FotoController {
 		return "foto-update";
 	}
 	
-	@PostMapping("foto/update/{id}")
+	@PostMapping("/admin/foto/update/{id}")
 	public String updateFoto(Model model,
 						@Valid @ModelAttribute Foto foto,
 						BindingResult bindingResult) {
@@ -127,10 +127,10 @@ public class FotoController {
 		
 		fotoService.save(foto);
 		
-		return "redirect:/foto";
+		return "redirect:/admin/foto";
 	}
 	
-	@GetMapping("/foto/delete/{id}")
+	@GetMapping("/admin/foto/delete/{id}")
 	public String deletePizza(
 			@PathVariable int id
 		) {
@@ -139,6 +139,6 @@ public class FotoController {
 		Foto foto = optFoto.get();
 		fotoService.deleteFoto(foto);
 		
-		return "redirect:/foto";
+		return "redirect:/admin/foto";
 	}
 }

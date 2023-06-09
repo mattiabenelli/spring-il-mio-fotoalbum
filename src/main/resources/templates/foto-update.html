@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 	<head>
 	<meta charset="UTF-8">
@@ -7,7 +6,7 @@
 	</head>
 	<body th:object="${foto}">
 		<h1>Aggiungi foto</h1>
-		<form th:action="@{/foto/update/{id} (id=*{id})}" method="POST">
+		<form th:action="@{/admin/foto/update/{id} (id=*{id})}" method="POST">
 			<label>nome</label>
 			<input type="text" name="titolo" th:value="*{titolo}">
 			<label 
