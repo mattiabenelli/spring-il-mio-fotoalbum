@@ -10,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class Foto {
@@ -18,8 +19,11 @@ public class Foto {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
+	@NotBlank(message = "il titolo non può essere vuoto")
 	private String titolo;
+	@NotBlank(message = "la descrizione non può essere vuota")
 	private String descrizione;
+	@NotBlank(message = "l'url non può essere vuoto")
 	private String url;
 	private Boolean visibile;
 	

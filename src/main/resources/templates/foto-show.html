@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body th:object="${foto}">
+	<h1>Foto</h1>
+	<h3>Titolo: [[ *{titolo} ]]</h3>
+	<h4>Descrizione: [[ *{descrizione} ]]</h4>
+	<img th:src="*{url}">
+	<div th:if="*{categorie.size() > 0}">
+	<h1>Categorie:</h1>
+	<ul>
+		<li
+			th:each="categoria : *{categorie}"
+			th:object="${categoria}"
+		>
+			[[ *{nomeCategoria} ]]
+		</li>
+	</ul>
+	</div>
+</body>
+</html>

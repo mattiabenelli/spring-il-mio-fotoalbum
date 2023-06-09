@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	</head>
+	<body th:object="${foto}">
+		<h1>Aggiungi foto</h1>
+		<form method="POST">
+			<label>nome</label>
+			<input type="text" name="titolo" th:value="*{titolo}">
+			<label 
+			style="color: red"
+			th:if="${errors != null && errors.hasFieldErrors('titolo')}"
+			>
+				[[ ${errors.getFieldError('titolo').defaultMessage} ]]
+			</label>
+			
+			<br>
+			<label>descrizione</label>
+			<input type="text" name="descrizione" th:value="*{descrizione}">
+			<label 
+			style="color: red"
+			th:if="${errors != null && errors.hasFieldErrors('descrizione')}"
+			>
+				[[ ${errors.getFieldError('descrizione').defaultMessage} ]]
+			</label>
+			
+			<br>
+			<label>foto(url)</label>
+			<input type="text" name="url" th:value="*{url}">
+			<label 
+			style="color: red"
+			th:if="${errors != null && errors.hasFieldErrors('url')}"
+			>
+				[[ ${errors.getFieldError('url').defaultMessage} ]]
+			</label>
+			
+
+	
+			<div
+			th:each="categoria : ${categorie}"
+			th:object="${categoria}"
+			>
+				<input th:id="${'categoria-' + categoria.id}" th:value="*{id}" type="checkbox" name="categorie">
+				<label th:for="${'categoria-' + categoria.id}">[[ *{nomeCategoria} ]]</label>
+			</div>
+			
+			<input type="submit" value="CREATE">
+		</form>
+</body>
+</html>
