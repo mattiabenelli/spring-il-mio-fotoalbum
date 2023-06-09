@@ -17,6 +17,12 @@
 			<a th:href="@{/foto/{id} (id=*{id})}">
 				[[ *{titolo} ]]
 			</a>
+			<a th:href="@{/foto/update/{id} (id=*{id})}">
+				modifica immagine
+			</a>
+			<a th:href="@{/foto/delete/{id} (id=*{id})}">
+				cancella immagine
+			</a>
 		</li>
 	</ul>
 

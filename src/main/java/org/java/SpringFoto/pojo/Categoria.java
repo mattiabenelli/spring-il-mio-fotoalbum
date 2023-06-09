@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,7 +20,7 @@ public class Categoria {
 
 	private String nomeCategoria;
 	
-	@ManyToMany(mappedBy = "categorie")
+	@ManyToMany(mappedBy = "categorie", cascade = CascadeType.REMOVE)
 	@JsonBackReference
 	private List<Foto> foto;
 	

@@ -129,4 +129,16 @@ public class FotoController {
 		
 		return "redirect:/foto";
 	}
+	
+	@GetMapping("/foto/delete/{id}")
+	public String deletePizza(
+			@PathVariable int id
+		) {
+		
+		Optional<Foto> optFoto = fotoService.findById(id);
+		Foto foto = optFoto.get();
+		fotoService.deleteFoto(foto);
+		
+		return "redirect:/foto";
+	}
 }
