@@ -14,6 +14,8 @@ public class FotoService {
 	@Autowired
 	private FotoRepo fotoRepo;
 	
+	
+	
 	public List<Foto> findAll(){
 		
 		return fotoRepo.findAll();
@@ -29,8 +31,14 @@ public class FotoService {
 		return fotoRepo.findByTitoloContaining(titolo);
 	}
 	
+	public Foto save(Foto foto) {
+		
+		return fotoRepo.save(foto);
+	}
+	
 	public void deleteFoto(Foto foto){
 		
 		fotoRepo.delete(foto);
 	}
+	
 }
