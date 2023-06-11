@@ -53,12 +53,14 @@ public class SpringIlMioFotoalbumFinaleApplication implements CommandLineRunner{
 		userService.save(userAdmin);
 		
 		Foto f1 = new Foto("titolo foto", "descrizione foto", "url foto", true);
+		Foto f2 = new Foto("titolo foto2", "descrizione foto2", "url foto2", true);
 		
 		Categoria c1 = new Categoria("cat 1");
 		
 		Categoria c2 = new Categoria("cat 2");
 		
 		fotoService.save(f1);
+		fotoService.save(f2);
 		
 		categoriaService.save(c1);
 		categoriaService.save(c2);
