@@ -86,6 +86,7 @@ public class FotoController {
 			return "foto-create";
 		}
 		
+		foto.setVisibile(true);
 		fotoService.save(foto);
 		
 		return "redirect:/admin/foto";
@@ -131,7 +132,7 @@ public class FotoController {
 	}
 	
 	@GetMapping("/admin/foto/delete/{id}")
-	public String deletePizza(
+	public String deleteFoto(
 			@PathVariable int id
 		) {
 		
@@ -140,5 +141,27 @@ public class FotoController {
 		fotoService.deleteFoto(foto);
 		
 		return "redirect:/admin/foto";
+	}
+	
+
+	@GetMapping("/admin/foto/hide/{id}")
+	public String hideFoto(@PathVariable int id) {
+		
+		Optional<Foto> optFoto = fotoService.findById(id);
+		Foto foto = optFoto.get();
+		
+		if(foto.getVisibile() == true) {
+			
+			foto.setVisibile(false);
+		}
+		else if(foto.getVisibile() == false) {
+			
+			foto.setVisibile(true);
+		}
+		
+		fotoService.save(foto);
+		
+		return "redirect:/admin/foto";
+		
 	}
 }

@@ -25,7 +25,8 @@ public class AuthConfiguration {
 			http.csrf(c -> c.disable())
 				.authorizeHttpRequests(a -> a
 			        .requestMatchers("/users/**").hasAnyAuthority("USER", "ADMIN")
-			        .requestMatchers("/admin/**").hasAuthority("ADMIN")
+			        .requestMatchers("/admin/foto/hide/{id}").hasAuthority("SUPERADMIN")
+			        .requestMatchers("/admin/**").hasAnyAuthority("ADMIN", "SUPERADMIN")
 			        .requestMatchers("/**").permitAll()
 			).formLogin(f -> f.permitAll()
 			).logout(l -> l.logoutSuccessUrl("/")

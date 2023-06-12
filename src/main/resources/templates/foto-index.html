@@ -15,13 +15,26 @@
 			th:object="${foto}"
 		>
 			<a th:href="@{/admin/foto/{id} (id=*{id})}">
-				[[ *{titolo} ]]
+				[[ *{titolo} ]] - [[ *{visibile} ]]
 			</a>
+			<span> - </span>
 			<a th:href="@{/admin/foto/update/{id} (id=*{id})}">
 				modifica immagine
 			</a>
+			<span> - </span>
 			<a th:href="@{/admin/foto/delete/{id} (id=*{id})}">
 				cancella immagine
+			</a>
+			<span> - </span>
+			<a th:href="@{/admin/foto/hide/{id} (id=*{id})}" 
+				th:if="${foto.visibile == true}"
+				sec:authorize="hasAuthority('SUPERADMIN')">
+				Nascondi foto
+			</a>
+			<a th:href="@{/admin/foto/hide/{id} (id=*{id})}" 
+				th:if="${foto.visibile == false}"
+				sec:authorize="hasAuthority('SUPERADMIN')">
+				Mostra foto
 			</a>
 		</li>
 	</ul>

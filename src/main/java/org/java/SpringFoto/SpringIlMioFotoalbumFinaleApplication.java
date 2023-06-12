@@ -40,17 +40,21 @@ public class SpringIlMioFotoalbumFinaleApplication implements CommandLineRunner{
 		
 		Role roleUser = new Role("USER");
 		Role roleAdmin = new Role("ADMIN");
+		Role roleSuperAdmin = new Role("SUPERADMIN");
 		
 		roleService.save(roleUser);
 		roleService.save(roleAdmin);
+		roleService.save(roleSuperAdmin);
 		
 		final String pws = new BCryptPasswordEncoder().encode("pws");
 		
 		User userUser = new User("user", pws, roleUser);
 		User userAdmin = new User("admin", pws, roleAdmin);
+		User userSuperAdmin = new User("superAdmin", pws, roleSuperAdmin);
 				
 		userService.save(userUser);
 		userService.save(userAdmin);
+		userService.save(userSuperAdmin);
 		
 		Foto f1 = new Foto("titolo foto", "descrizione foto", "url foto", true);
 		Foto f2 = new Foto("titolo foto2", "descrizione foto2", "url foto2", true);

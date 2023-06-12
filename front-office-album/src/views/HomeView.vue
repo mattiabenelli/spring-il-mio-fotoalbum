@@ -33,7 +33,9 @@ export default {
 <template>
   <main>
     <ul>
-      <li v-for="item in foto" :key="item.id">{{ item.titolo }}</li>
+      <li v-for="item in foto" :key="item.id">
+        <span v-if="item.visibile == true">{{ item.titolo }}</span>
+      </li>
     </ul>
     <MessageCreate />
   </main>
