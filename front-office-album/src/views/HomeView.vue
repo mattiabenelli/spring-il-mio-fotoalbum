@@ -2,6 +2,8 @@
 const BASE_API_URL = "http://localhost:8080/api/v1";
 import axios from "axios";
 
+import MessageCreate from "../components/MessageCreate.vue";
+
 export default {
   data() {
     return {
@@ -19,6 +21,9 @@ export default {
         .catch((err) => console.log(err));
     },
   },
+  components: {
+    MessageCreate,
+  },
   mounted() {
     this.getImage();
   },
@@ -30,5 +35,6 @@ export default {
     <ul>
       <li v-for="item in foto" :key="item.id">{{ item.titolo }}</li>
     </ul>
+    <MessageCreate />
   </main>
 </template>
