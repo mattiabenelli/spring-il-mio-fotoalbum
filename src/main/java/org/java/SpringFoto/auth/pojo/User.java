@@ -3,19 +3,26 @@ package org.java.SpringFoto.auth.pojo;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+import org.java.SpringFoto.pojo.Foto;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -37,12 +44,19 @@ public class User implements UserDetails {
 	@ManyToMany(fetch = FetchType.EAGER)
 	private Set<Role> roles;
 	
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+	private List<Foto> foto;
+	
 	public User() { }
 	public User(String username, String password, Role... roles) {
 		
 		setUsername(username);
 		setPassword(password);
+		
+		
 		setRole(roles);
+		
 	}
 	
 	@Override
@@ -105,6 +119,13 @@ public class User implements UserDetails {
 		setRoles(new HashSet<>(Arrays.asList(roles)));
 	}
 	
+	
+	public List<Foto> getFoto() {
+		return foto;
+	}
+	public void setFoto(List<Foto> foto) {
+		this.foto = foto;
+	}
 	@Override
 	public String toString() {
 		

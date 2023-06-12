@@ -3,11 +3,15 @@ package org.java.SpringFoto.controller;
 import java.util.List;
 import java.util.Optional;
 
+import org.java.SpringFoto.auth.pojo.User;
+import org.java.SpringFoto.auth.serv.UserService;
 import org.java.SpringFoto.pojo.Categoria;
 import org.java.SpringFoto.pojo.Foto;
 import org.java.SpringFoto.service.CategoriaService;
 import org.java.SpringFoto.service.FotoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -30,16 +34,48 @@ public class FotoController {
 	@Autowired
 	private CategoriaService categoriaService;
 	
+	@Autowired
+	private UserService userService;
+	
 	@GetMapping("/admin/foto")
 	public String fotoList(Model model) {
 		
+	
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String currentPrincipalName = authentication.getName();
+		
+		List<User> users = userService.findAll();
+		
 		List<Foto> foto = fotoService.findAll();
 		
-		model.addAttribute("foto", foto);
+		for(User u : users) {
+	
+			System.out.println(currentPrincipalName);
+			System.out.println(u.getUsername());
+			
+			
+			if(currentPrincipalName.equals(u.getUsername()) ) {
+				
+				System.out.println("ciao");
+				
+				for(Foto f : foto) {
+					
+					if(u.getId() == f.getUser().getId()) {
+						
+						System.out.println("ciao2");
+						
+						model.addAttribute("f", f);
+						
+					}
+				}		
+			}	
+		}	
+			
 		
 		return "foto-index";
 		
 	}
+	
 	
 	@GetMapping("/admin/foto/{id}")
 	public String getFotoId(Model model,

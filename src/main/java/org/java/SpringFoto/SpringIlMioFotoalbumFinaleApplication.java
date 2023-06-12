@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @SpringBootApplication
@@ -56,8 +58,8 @@ public class SpringIlMioFotoalbumFinaleApplication implements CommandLineRunner{
 		userService.save(userAdmin);
 		userService.save(userSuperAdmin);
 		
-		Foto f1 = new Foto("titolo foto", "descrizione foto", "url foto", true);
-		Foto f2 = new Foto("titolo foto2", "descrizione foto2", "url foto2", true);
+		Foto f1 = new Foto("titolo foto", "descrizione foto", "url foto", true, userAdmin);
+		Foto f2 = new Foto("titolo foto2", "descrizione foto2", "url foto2", true, userSuperAdmin);
 		
 		Categoria c1 = new Categoria("cat 1");
 		

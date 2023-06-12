@@ -11,7 +11,7 @@
 			</a>
 	 <ul>
 		<li
-			th:each="foto : ${foto}"
+			th:each="foto : ${f}"
 			th:object="${foto}"
 		>
 			<a th:href="@{/admin/foto/{id} (id=*{id})}">
