@@ -21,6 +21,8 @@ export default {
           this.$router.push("/");
         })
         .catch((err) => console.log(err));
+      this.Messaggio.email = "";
+      this.Messaggio.messaggio = "";
     },
   },
 };

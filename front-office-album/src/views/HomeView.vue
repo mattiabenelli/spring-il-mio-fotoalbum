@@ -23,7 +23,7 @@ export default {
     },
     searchImage() {
       axios
-        .get(BASE_API_URL + "/foto/search?titolo=" + inputSearch)
+        .get(BASE_API_URL + "/foto/search?titolo=" + this.inputSearch)
         .then((res) => {
           this.foto = res.data;
           console.log(this.foto);
@@ -42,7 +42,10 @@ export default {
 
 <template>
   <main>
-    <form></form>
+    <label for="search">Cerca foto</label>
+    <input type="text" name="search" v-model="this.inputSearch" /><br />
+    <button @click="searchImage()">Cerca</button>
+
     <ul>
       <li v-for="item in foto" :key="item.id">
         <span v-if="item.visibile == true">{{ item.titolo }}</span>

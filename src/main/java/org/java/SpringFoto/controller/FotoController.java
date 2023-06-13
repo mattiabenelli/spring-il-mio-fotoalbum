@@ -42,8 +42,6 @@ public class FotoController {
 	@Autowired
 	private UserService userService;
 	
-	@Autowired
-	private RoleService roleService;
 	
 	@GetMapping("/admin/foto")
 	public String fotoList(Model model) {
@@ -103,6 +101,7 @@ public class FotoController {
 		
 	return "foto-index";	
 	}
+	
 	
 	@GetMapping("/admin/foto/{id}")
 	public String getFotoId(Model model,
