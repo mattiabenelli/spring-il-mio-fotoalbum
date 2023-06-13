@@ -9,8 +9,11 @@
 	<a th:href="@{/admin/foto/create}">
 				Aggiungi una nuova foto
 			</a>
-	 <ul>
+
+	 
+	 	<ul>
 		<li
+			th:if="${str == 'ADMIN'}"
 			th:each="foto : ${f}"
 			th:object="${foto}"
 		>
@@ -37,7 +40,38 @@
 				Mostra foto
 			</a>
 		</li>
+		
+		<li
+			th:if="${str == 'SUPERADMIN'}"
+			th:each="foto : ${foto}"
+			th:object="${foto}"
+		>
+			<a th:href="@{/admin/foto/{id} (id=*{id})}">
+				[[ *{titolo} ]] - [[ *{visibile} ]]
+			</a>
+			<span> - </span>
+			<a th:href="@{/admin/foto/update/{id} (id=*{id})}">
+				modifica immagine
+			</a>
+			<span> - </span>
+			<a th:href="@{/admin/foto/delete/{id} (id=*{id})}">
+				cancella immagine
+			</a>
+			<span> - </span>
+			<a th:href="@{/admin/foto/hide/{id} (id=*{id})}" 
+				th:if="${foto.visibile == true}"
+				sec:authorize="hasAuthority('SUPERADMIN')">
+				Nascondi foto
+			</a>
+			<a th:href="@{/admin/foto/hide/{id} (id=*{id})}" 
+				th:if="${foto.visibile == false}"
+				sec:authorize="hasAuthority('SUPERADMIN')">
+				Mostra foto
+			</a>
+		</li>
 	</ul>
+	 
+	 
 
 </body>
 </html>

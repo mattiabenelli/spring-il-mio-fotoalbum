@@ -8,12 +8,22 @@ export default {
   data() {
     return {
       foto: [],
+      inputSearch: "",
     };
   },
   methods: {
     getImage() {
       axios
         .get(BASE_API_URL + "/foto")
+        .then((res) => {
+          this.foto = res.data;
+          console.log(this.foto);
+        })
+        .catch((err) => console.log(err));
+    },
+    searchImage() {
+      axios
+        .get(BASE_API_URL + "/foto/search?titolo=" + inputSearch)
         .then((res) => {
           this.foto = res.data;
           console.log(this.foto);
@@ -32,6 +42,7 @@ export default {
 
 <template>
   <main>
+    <form></form>
     <ul>
       <li v-for="item in foto" :key="item.id">
         <span v-if="item.visibile == true">{{ item.titolo }}</span>

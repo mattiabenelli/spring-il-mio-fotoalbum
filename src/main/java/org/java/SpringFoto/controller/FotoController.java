@@ -1,9 +1,14 @@
 package org.java.SpringFoto.controller;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
+import org.java.SpringFoto.auth.pojo.Role;
 import org.java.SpringFoto.auth.pojo.User;
+import org.java.SpringFoto.auth.serv.RoleService;
 import org.java.SpringFoto.auth.serv.UserService;
 import org.java.SpringFoto.pojo.Categoria;
 import org.java.SpringFoto.pojo.Foto;
@@ -37,45 +42,67 @@ public class FotoController {
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	private RoleService roleService;
+	
 	@GetMapping("/admin/foto")
 	public String fotoList(Model model) {
 		
-	
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String currentPrincipalName = authentication.getName();
+		
+		
+		
+		Authentication authentication1 = SecurityContextHolder.getContext().getAuthentication();
+
+		Set<String> role = authentication1.getAuthorities().stream()
+		     .map(r -> r.getAuthority()).collect(Collectors.toSet());
+		
+		
+		String[] array = role.toArray(new String[0]);
+        System.out.println(Arrays.toString(array));
+        
+        StringBuffer sb = new StringBuffer();
+        for(int i = 0; i < array.length; i++) {
+           sb.append(array[i]);
+        }
+        String str = sb.toString();
+        System.out.println(str);
 		
 		List<User> users = userService.findAll();
 		
 		List<Foto> foto = fotoService.findAll();
-		
-		for(User u : users) {
-	
-			System.out.println(currentPrincipalName);
-			System.out.println(u.getUsername());
 			
+		model.addAttribute("str", str);
 			
-			if(currentPrincipalName.equals(u.getUsername()) ) {
+		if(str.equals("SUPERADMIN")) {
+			
+			model.addAttribute("foto", foto);
+			
+		}
+		else if(str.equals("ADMIN")){
+			for(User u : users) {
 				
-				System.out.println("ciao");
-				
-				for(Foto f : foto) {
+				if(currentPrincipalName.equals(u.getUsername()) ) {
 					
-					if(u.getId() == f.getUser().getId()) {
+					for(Foto f : foto) {
 						
-						System.out.println("ciao2");
-						
-						model.addAttribute("f", f);
-						
-					}
-				}		
-			}	
-		}	
-			
+						if(u.getId() == f.getUser().getId()) {
+							
+							System.out.println("sium3");
+							
+							model.addAttribute("f", f);
+							break;
+							
+						}
+					}		
+				}	
+			}
+		}
+
 		
-		return "foto-index";
-		
+	return "foto-index";	
 	}
-	
 	
 	@GetMapping("/admin/foto/{id}")
 	public String getFotoId(Model model,
