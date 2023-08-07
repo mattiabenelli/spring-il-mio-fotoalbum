@@ -175,11 +175,16 @@ public class FotoController {
 	
 	@GetMapping("/admin/foto/update/{id}")
 	public String editFoto(Model model,
-							@PathVariable int id) {
+							@PathVariable int id,
+							@AuthenticationPrincipal org.java.SpringFoto.auth.pojo.User user) {
 		
 		List<Categoria> categorie = categoriaService.findAll();
 		Optional<Foto> optFoto = fotoService.findById(id);
 		Foto foto = optFoto.get();
+		
+		int userId = user.getId();
+	    model.addAttribute("userId", userId);
+	    
 		model.addAttribute("foto", foto);
 		model.addAttribute("categorie", categorie);
 		
@@ -189,7 +194,8 @@ public class FotoController {
 	@PostMapping("/admin/foto/update/{id}")
 	public String updateFoto(Model model,
 						@Valid @ModelAttribute Foto foto,
-						BindingResult bindingResult) {
+						BindingResult bindingResult,
+						 @AuthenticationPrincipal org.java.SpringFoto.auth.pojo.User user) {
 		
 		if (bindingResult.hasErrors()) {
 			
@@ -206,7 +212,7 @@ public class FotoController {
 			
 			return "foto-update";
 		}
-		
+		 foto.setUser(user);
 		fotoService.save(foto);
 		
 		return "redirect:/admin/foto";

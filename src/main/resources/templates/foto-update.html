@@ -36,7 +36,9 @@
 				[[ ${errors.getFieldError('url').defaultMessage} ]]
 			</label>
 			
-
+			<input type="hidden" name="visibile" th:value="${foto.visibile} ? true : false">
+			
+			<input type="hidden" name="user.id" th:value="${userId}">
 	
 			<div
 			th:each="categoria : ${categorie}"
