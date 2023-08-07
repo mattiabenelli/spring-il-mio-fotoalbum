@@ -27,15 +27,31 @@ export default {
   },
 };
 </script>
-<template lang="">
+<template>
+  <div class="container mt-4">
     <h2>Invia messaggio</h2>
     <form @submit.prevent="sendMessage">
+      <div class="form-group">
         <label for="email">Email</label>
-        <input type="email" name="email" v-model="Messaggio.email"><br>
-        <label for="messaggio">messaggio</label>
-        <input type="text" name="messaggio" v-model="Messaggio.messaggio"><br>
-        <input type="submit" value="CREATE">
+        <input
+          type="email"
+          name="email"
+          v-model="Messaggio.email"
+          class="form-control"
+        />
+      </div>
+      <div class="form-group">
+        <label for="messaggio">Messaggio</label>
+        <input
+          type="text"
+          name="messaggio"
+          v-model="Messaggio.messaggio"
+          class="form-control"
+        />
+      </div>
+      <input type="submit" value="CREATE" class="btn btn-primary" />
     </form>
+  </div>
 </template>
 <style lang="">
 </style>

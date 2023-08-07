@@ -1,24 +1,28 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+	<meta charset="UTF-8">
+	<title>Foto</title>
+	<!-- Aggiungi il link al CSS di Bootstrap -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
-<body th:object="${foto}">
+<body th:object="${foto}" class="container mt-4">
 	<h1>Foto</h1>
 	<h3>Titolo: [[ *{titolo} ]]</h3>
 	<h4>Descrizione: [[ *{descrizione} ]]</h4>
-	<img th:src="*{url}">
+	<img th:src="*{url}" class="img-fluid">
 	<div th:if="*{categorie.size() > 0}">
-	<h1>Categorie:</h1>
-	<ul>
-		<li
-			th:each="categoria : *{categorie}"
-			th:object="${categoria}"
-		>
-			[[ *{nomeCategoria} ]]
-		</li>
-	</ul>
+		<h1>Categorie:</h1>
+		<ul class="list-group">
+			<li th:each="categoria : *{categorie}" th:object="${categoria}" class="list-group-item">
+				[[ *{nomeCategoria} ]]
+			</li>
+		</ul>
 	</div>
+
+	<!-- Aggiungi i link ai file JS di Bootstrap -->
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

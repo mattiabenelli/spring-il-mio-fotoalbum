@@ -1,79 +1,63 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    <meta charset="UTF-8">
+    <title>Lista Foto</title>
+    <!-- Aggiungi i link alle librerie Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-A4hH4zgH3f5mzlmz5O4CCqc2ZlAuLm6V4WVd6e5Kk5bo1kuVxKyd+Xo7wJd1jIbb" crossorigin="anonymous">
 </head>
+
 <body>
-	<h1>Foto</h1>
-	<a th:href="@{/admin/foto/create}">
-				Aggiungi una nuova foto
-			</a>
+    <div class="container mt-5">
+        <h1>Foto</h1>
+        <a class="btn btn-primary mb-3" th:href="@{/admin/foto/create}">Aggiungi una nuova foto</a>
 
-	 
-	 	<ul>
-		<li
-			th:if="${str == 'ADMIN'}"
-			th:each="foto : ${userFoto}"
-			th:object="${foto}"
-		>
-			<a th:href="@{/admin/foto/{id} (id=*{id})}">
-				[[ *{titolo} ]] - [[ *{visibile} ]]
-			</a>
-			<span> - </span>
-			<a th:href="@{/admin/foto/update/{id} (id=*{id})}">
-				modifica immagine
-			</a>
-			<span> - </span>
-			<a th:href="@{/admin/foto/delete/{id} (id=*{id})}">
-				cancella immagine
-			</a>
-			<span> - </span>
-			<a th:href="@{/admin/foto/hide/{id} (id=*{id})}" 
-				th:if="${foto.visibile == true}"
-				sec:authorize="hasAuthority('SUPERADMIN')">
-				Nascondi foto
-			</a>
-			<a th:href="@{/admin/foto/hide/{id} (id=*{id})}" 
-				th:if="${foto.visibile == false}"
-				sec:authorize="hasAuthority('SUPERADMIN')">
-				Mostra foto
-			</a>
-		</li>
-		
-		<li
-			th:if="${str == 'SUPERADMIN'}"
-			th:each="foto : ${foto}"
-			th:object="${foto}"
-		>
-			<a th:href="@{/admin/foto/{id} (id=*{id})}">
-				[[ *{titolo} ]] - [[ *{visibile} ]]
-			</a>
-			<span> - </span>
-			<a th:href="@{/admin/foto/update/{id} (id=*{id})}">
-				modifica immagine
-			</a>
-			<span> - </span>
-			<a th:href="@{/admin/foto/delete/{id} (id=*{id})}">
-				cancella immagine
-			</a>
-			<span> - </span>
-			<a th:href="@{/admin/foto/hide/{id} (id=*{id})}" 
-				th:if="${foto.visibile == true}"
-				sec:authorize="hasAuthority('SUPERADMIN')">
-				Nascondi foto
-			</a>
-			<a th:href="@{/admin/foto/hide/{id} (id=*{id})}" 
-				th:if="${foto.visibile == false}"
-				sec:authorize="hasAuthority('SUPERADMIN')">
-				Mostra foto
-			</a>
-		</li>
-	</ul>
-	 	<a
-		href="/logout"
-	>LOGOUT</a>
-	 
+        <ul class="list-group">
+            <li th:if="${str == 'ADMIN'}" th:each="foto : ${userFoto}" th:object="${foto}"
+                class="list-group-item d-flex justify-content-between align-items-center">
+                <a th:href="@{/admin/foto/{id} (id=*{id})}">
+                    [[*{titolo}]]
+                </a>
+                <div>
+                	<div th:if="${foto.visibile == true}" class="btn btn-sm btn-success">visibile</div>
+                	<div th:if="${foto.visibile == false}" class="btn btn-sm btn-danger">non visibile</div>
+                    <a th:href="@{/admin/foto/update/{id} (id=*{id})}" class="btn btn-sm btn-primary">Modifica immagine</a>
+                    <a th:href="@{/admin/foto/delete/{id} (id=*{id})}" class="btn btn-sm btn-danger">Cancella immagine</a>
+                    <a th:href="@{/admin/foto/hide/{id} (id=*{id})}" th:if="${foto.visibile == true}"
+                        sec:authorize="hasAuthority('SUPERADMIN')" class="btn btn-sm btn-warning">Nascondi foto</a>
+                    <a th:href="@{/admin/foto/hide/{id} (id=*{id})}" th:if="${foto.visibile == false}"
+                        sec:authorize="hasAuthority('SUPERADMIN')" class="btn btn-sm btn-success">Mostra foto</a>
+                </div>
+            </li>
 
+            <li th:if="${str == 'SUPERADMIN'}" th:each="foto : ${foto}" th:object="${foto}"
+                class="list-group-item d-flex justify-content-between align-items-center">
+                <a th:href="@{/admin/foto/{id} (id=*{id})}">
+                    [[*{titolo}]]
+                </a>
+                <div>
+                	<div th:if="${foto.visibile == true}" class="btn btn-sm btn-success">visibile</div>
+                	<div th:if="${foto.visibile == false}" class="btn btn-sm btn-danger">non visibile</div>
+                    <a th:href="@{/admin/foto/update/{id} (id=*{id})}" class="btn btn-sm btn-primary">Modifica immagine</a>
+                    <a th:href="@{/admin/foto/delete/{id} (id=*{id})}" class="btn btn-sm btn-danger">Cancella immagine</a>
+                    <a th:href="@{/admin/foto/hide/{id} (id=*{id})}" th:if="${foto.visibile == true}"
+                        sec:authorize="hasAuthority('SUPERADMIN')" class="btn btn-sm btn-warning">Nascondi foto</a>
+                    <a th:href="@{/admin/foto/hide/{id} (id=*{id})}" th:if="${foto.visibile == false}"
+                        sec:authorize="hasAuthority('SUPERADMIN')" class="btn btn-sm btn-success">Mostra foto</a>
+                </div>
+            </li>
+        </ul>
+
+        <a href="/logout" class="btn btn-danger mt-3">LOGOUT</a>
+    </div>
+
+    <!-- Aggiungi i link alle librerie Bootstrap JS e jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-DhYVRGm5CzrXibBkHlJZ1gcyU4XNulIWZkRxR15O3FUQ0zylg5XiLxR0xvBNTy1s" crossorigin="anonymous"></script>
 </body>
+
 </html>

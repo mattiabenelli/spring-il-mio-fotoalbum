@@ -41,16 +41,30 @@ export default {
 </script>
 
 <template>
-  <main>
-    <label for="search">Cerca foto</label>
-    <input type="text" name="search" v-model="this.inputSearch" /><br />
-    <button @click="searchImage()">Cerca</button>
-
-    <ul>
-      <li v-for="item in foto" :key="item.id">
-        <span v-if="item.visibile == true">{{ item.titolo }}</span>
-      </li>
-    </ul>
+  <main class="container mt-4">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="form-group">
+          <label for="search">Cerca foto</label>
+          <input
+            type="text"
+            name="search"
+            v-model="inputSearch"
+            class="form-control"
+          />
+        </div>
+        <button @click="searchImage()" class="btn btn-primary">Cerca</button>
+      </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-md-8">
+        <ul class="list-group">
+          <li v-for="item in foto" :key="item.id" class="list-group-item">
+            <span v-if="item.visibile == true">{{ item.titolo }}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
     <MessageCreate />
   </main>
 </template>
