@@ -29,7 +29,7 @@ public class AuthConfiguration {
 			        .requestMatchers("/admin/**").hasAnyAuthority("ADMIN", "SUPERADMIN")
 			        .requestMatchers("/**").permitAll()
 			).formLogin(f -> f.permitAll()
-			).logout(l -> l.logoutSuccessUrl("/")
+			).logout(l -> l.logoutSuccessUrl("/admin/foto")
 			).build();
 	}
 }

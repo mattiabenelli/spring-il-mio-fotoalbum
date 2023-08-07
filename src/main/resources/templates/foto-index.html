@@ -14,7 +14,7 @@
 	 	<ul>
 		<li
 			th:if="${str == 'ADMIN'}"
-			th:each="foto : ${f}"
+			th:each="foto : ${userFoto}"
 			th:object="${foto}"
 		>
 			<a th:href="@{/admin/foto/{id} (id=*{id})}">
@@ -70,7 +70,9 @@
 			</a>
 		</li>
 	</ul>
-	 
+	 	<a
+		href="/logout"
+	>LOGOUT</a>
 	 
 
 </body>

@@ -1,14 +1,13 @@
 package org.java.SpringFoto.controller;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.java.SpringFoto.auth.pojo.Role;
 import org.java.SpringFoto.auth.pojo.User;
-import org.java.SpringFoto.auth.serv.RoleService;
 import org.java.SpringFoto.auth.serv.UserService;
 import org.java.SpringFoto.pojo.Categoria;
 import org.java.SpringFoto.pojo.Foto;
@@ -16,6 +15,7 @@ import org.java.SpringFoto.service.CategoriaService;
 import org.java.SpringFoto.service.FotoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -79,6 +79,8 @@ public class FotoController {
 			
 		}
 		else if(str.equals("ADMIN")){
+			
+			List<Foto> userFoto = new ArrayList<>() ;
 			for(User u : users) {
 				
 				if(currentPrincipalName.equals(u.getUsername()) ) {
@@ -89,13 +91,16 @@ public class FotoController {
 							
 							System.out.println("sium3");
 							
-							model.addAttribute("f", f);
-							break;
+							userFoto.add(f);
+							
+
 							
 						}
 					}		
 				}	
 			}
+			
+			model.addAttribute("userFoto", userFoto);
 		}
 
 		
@@ -117,12 +122,19 @@ public class FotoController {
 	}
 	
 	@GetMapping("/admin/foto/create")
-	public String CreateFoto(Model model){
+	public String CreateFoto(Model model, @AuthenticationPrincipal org.java.SpringFoto.auth.pojo.User user){
 		
 		List<Categoria> categorie = categoriaService.findAll();
 		
+		
+		
 		model.addAttribute("foto", new Foto());
+		
 		model.addAttribute("categorie", categorie);
+		
+		int userId = user.getId();
+	    model.addAttribute("userId", userId);
+		
 		
 		return "foto-create";
 	}
@@ -130,7 +142,11 @@ public class FotoController {
 	@PostMapping("/admin/foto/create")
 	public String storeFoto(Model model,
 						@Valid @ModelAttribute Foto foto,
-						BindingResult bindingResult) {
+						BindingResult bindingResult,
+						@AuthenticationPrincipal org.java.SpringFoto.auth.pojo.User user) {
+		
+		
+	    
 		
 		if (bindingResult.hasErrors()) {
 			
@@ -141,12 +157,15 @@ public class FotoController {
 			
 			model.addAttribute("foto", foto);
 			model.addAttribute("categorie", categorie);
+
 			
 			model.addAttribute("errors", bindingResult);
 			
 			
 			return "foto-create";
 		}
+		
+		 foto.setUser(user);
 		
 		foto.setVisibile(true);
 		fotoService.save(foto);

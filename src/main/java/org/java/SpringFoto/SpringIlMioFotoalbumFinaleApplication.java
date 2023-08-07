@@ -58,8 +58,9 @@ public class SpringIlMioFotoalbumFinaleApplication implements CommandLineRunner{
 		userService.save(userAdmin);
 		userService.save(userSuperAdmin);
 		
-		Foto f1 = new Foto("titolo foto", "descrizione foto", "url foto", true, userAdmin);
-		Foto f2 = new Foto("titolo foto2", "descrizione foto2", "url foto2", true, userSuperAdmin);
+		Foto f1 = new Foto("titolo foto admin", "descrizione foto", "url foto", true, userAdmin);
+		Foto f3 = new Foto("titolo foto admin 2", "descrizione foto 2", "url foto 2", true, userAdmin);
+		Foto f2 = new Foto("titolo foto2 superadmin", "descrizione foto2", "url foto2", true, userSuperAdmin);
 		
 		Categoria c1 = new Categoria("cat 1");
 		
@@ -67,6 +68,7 @@ public class SpringIlMioFotoalbumFinaleApplication implements CommandLineRunner{
 		
 		fotoService.save(f1);
 		fotoService.save(f2);
+		fotoService.save(f3);
 		
 		categoriaService.save(c1);
 		categoriaService.save(c2);
