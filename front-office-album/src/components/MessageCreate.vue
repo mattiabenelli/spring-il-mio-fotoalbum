@@ -28,7 +28,7 @@ export default {
 };
 </script>
 <template>
-  <div class="container mt-4">
+  <div class="container col-md-8 my-4">
     <h2>Invia messaggio</h2>
     <form @submit.prevent="sendMessage">
       <div class="form-group">
@@ -49,7 +49,7 @@ export default {
           class="form-control"
         />
       </div>
-      <input type="submit" value="CREATE" class="btn btn-primary" />
+      <input type="submit" value="CREATE" class="btn btn-primary mt-2" />
     </form>
   </div>
 </template>

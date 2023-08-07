@@ -75,7 +75,19 @@ public class FotoController {
 			
 		if(str.equals("SUPERADMIN")) {
 			
+			for(User u : users) {
+				
+				if(currentPrincipalName.equals(u.getUsername()) ) {
+					
+					String username = u.getUsername();
+					
+					model.addAttribute("username", username);
+						
+				}	
+			}
+			
 			model.addAttribute("foto", foto);
+			
 			
 		}
 		else if(str.equals("ADMIN")){
@@ -84,6 +96,10 @@ public class FotoController {
 			for(User u : users) {
 				
 				if(currentPrincipalName.equals(u.getUsername()) ) {
+					
+					String username = u.getUsername();
+					
+					model.addAttribute("username", username);
 					
 					for(Foto f : foto) {
 						

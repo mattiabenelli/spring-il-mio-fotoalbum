@@ -53,14 +53,16 @@ public class SpringIlMioFotoalbumFinaleApplication implements CommandLineRunner{
 		User userUser = new User("user", pws, roleUser);
 		User userAdmin = new User("admin", pws, roleAdmin);
 		User userSuperAdmin = new User("superAdmin", pws, roleSuperAdmin);
+		User userAdmin2 = new User("admin2", pws, roleAdmin);
 				
 		userService.save(userUser);
 		userService.save(userAdmin);
 		userService.save(userSuperAdmin);
+		userService.save(userAdmin2);
 		
-		Foto f1 = new Foto("titolo foto admin", "descrizione foto", "url foto", true, userAdmin);
-		Foto f3 = new Foto("titolo foto admin 2", "descrizione foto 2", "url foto 2", true, userAdmin);
-		Foto f2 = new Foto("titolo foto2 superadmin", "descrizione foto2", "url foto2", true, userSuperAdmin);
+		Foto f1 = new Foto("titolo foto admin", "descrizione foto", "https://www.donnamoderna.com/content/uploads/2020/07/Immagini-rilassanti-di-panorami-naturali.jpg", true, userAdmin);
+		Foto f3 = new Foto("titolo foto admin 2", "descrizione foto 2", "https://fotografiaartistica.it/wp-content/uploads/2019/06/nasa-immagini-gratuite-dello-spazio.jpg", true, userAdmin);
+		Foto f2 = new Foto("titolo foto2 superadmin", "descrizione foto2", "https://www.ideabit.com/album/foto_full/formato-immagini-webp_710.jpg", true, userSuperAdmin);
 		
 		Categoria c1 = new Categoria("cat 1");
 		

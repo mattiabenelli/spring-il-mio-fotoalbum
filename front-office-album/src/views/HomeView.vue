@@ -37,30 +37,48 @@ export default {
   mounted() {
     this.getImage();
   },
+  computed: {
+    filteredFoto() {
+      return this.foto.filter((item) => item.visibile);
+    },
+  },
 };
 </script>
 
 <template>
   <main class="container mt-4">
-    <div class="row">
-      <div class="col-md-8">
-        <div class="form-group">
-          <label for="search">Cerca foto</label>
+    <div class="row justify-content-center">
+      <div class="col-md-8 text-center">
+        <h3>Cerca una foto</h3>
+        <div class="form-group d-flex">
           <input
             type="text"
             name="search"
             v-model="inputSearch"
             class="form-control"
           />
+          <button @click="searchImage()" class="btn btn-primary ml-2 ms-2">
+            Cerca
+          </button>
         </div>
-        <button @click="searchImage()" class="btn btn-primary">Cerca</button>
       </div>
     </div>
-    <div class="row mt-4">
+    <div class="row mt-4 justify-content-center">
       <div class="col-md-8">
         <ul class="list-group">
-          <li v-for="item in foto" :key="item.id" class="list-group-item">
-            <span v-if="item.visibile == true">{{ item.titolo }}</span>
+          <li
+            v-for="item in filteredFoto"
+            :key="item.id"
+            class="list-group-item"
+          >
+            <div class="d-flex flex-column align-items-center">
+              <img
+                :src="item.url"
+                class="img-thumbnail mb-3"
+                style="max-width: 300px; max-height: 100%"
+              />
+              <span class="text-center">{{ item.titolo }}</span>
+            </div>
           </li>
         </ul>
       </div>
@@ -68,3 +86,10 @@ export default {
     <MessageCreate />
   </main>
 </template>
+
+
+
+
+
+
+
